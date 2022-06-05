@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
+import { query } from 'express';
 
 @Controller('employees')
 export class EmployeesController {
@@ -22,8 +23,9 @@ export class EmployeesController {
     return this.employeesService.findOneWithId(id);
   }
 
-  @Get(':wallet')
-  findOneWithWallet(@Param('wallet') wallet: string) {
+  @Get('/employee/wallet')
+  findOneWithWallet(@Query('wallet') wallet: string) {
+    console.log("query")
     return this.employeesService.findOneWithWallet(wallet);
   }
 
