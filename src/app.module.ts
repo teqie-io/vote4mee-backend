@@ -8,6 +8,7 @@ import { RolesModule } from './roles/roles.module';
 import { CommentsModule } from './comments/comments.module';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaService } from './prisma/prisma.service';
+import { VotesModule } from './votes/votes.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { PrismaService } from './prisma/prisma.service';
     ProfilesModule,
     RolesModule,
     CommentsModule,
+    VotesModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
