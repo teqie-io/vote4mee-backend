@@ -8,7 +8,7 @@ export class CreateProfileDto {
 
     @IsArray()
     @IsOptional()
-    skill: string[]
+    skills: string[]
 
     @IsString()
     @IsOptional()

@@ -23,11 +23,13 @@ export class CommentsService {
     }
   }
 
-  async findAll(profileId: number) {
+  async findAll(profileId: string) {
     try {
+      const id = Number(profileId)
+      console.log(id, typeof(profileId))
       const comments = await this.prisma.comment.findMany({
         where: {
-          profileId: profileId,
+          profileId: id,
         },
       });
       return comments;

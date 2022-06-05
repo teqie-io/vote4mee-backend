@@ -12,15 +12,15 @@ export class CommentsController {
     return this.commentsService.create(createCommentDto);
   }
 
-  @Get(':profileId')
-  findAll(@Param('profileId') profileId: number) {
+  @Get('/:profileId')
+  findAll(@Param('profileId') profileId: string) {
     return this.commentsService.findAll(profileId);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: number) {
-    return this.commentsService.findOne(+id);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: number) {
+  //   return this.commentsService.findOne(+id);
+  // }
 
   @Patch(':id')
   update(@Param('id') id: number, @Body() updateCommentDto: UpdateCommentDto) {

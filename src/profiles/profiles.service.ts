@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { profile } from 'console';
 import { PrismaService } from '../prisma/prisma.service';
@@ -10,9 +10,18 @@ export class ProfilesService {
   constructor(private prisma: PrismaService, private config: ConfigService) {}
   async create(createProfileDto: CreateProfileDto) {
     try {
+      const employeeId = createProfileDto.employeeId;
+      let skills = createProfileDto.skills;
+      let overview = createProfileDto.overview;
+      if (!employeeId) {
+        throw new ForbiddenException('EmployeeId not found');
+      }
+
       const profile = await this.prisma.profile.create({
         data: {
-          employeeId: createProfileDto.employeeId,
+          employeeId: employeeId,
+          skills: skills,
+          overview: overview,
         },
       });
       return profile;
@@ -24,7 +33,7 @@ export class ProfilesService {
   async findAll() {
     try {
       const profiles = await this.prisma.profile.findMany();
-      return profile;
+      return profiles;
     } catch (error) {
       throw error;
     }
