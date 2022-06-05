@@ -42,3 +42,10 @@ model Comment {
   profileId Int
   content String
 }
+
+model Vote {
+  id Int @default(autoincrement()) @id
+  senderId Int
+  receiverId Int
+  amount Int
+}
