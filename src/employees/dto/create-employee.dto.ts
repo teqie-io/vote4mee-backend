@@ -20,4 +20,12 @@ export class CreateEmployeeDto {
   @IsNumber()
   @IsOptional()
   contributions: number
+
+  @IsArray()
+  @IsOptional()
+  skills: string[];
+
+  @IsString()
+  @IsOptional()
+  overview: string;
 }

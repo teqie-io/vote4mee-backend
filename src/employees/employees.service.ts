@@ -11,15 +11,44 @@ export class EmployeesService {
   constructor(private prisma: PrismaService, private config: ConfigService) {}
   async create(createEmployeeDto: CreateEmployeeDto) {
     try {
-      const employee = await this.prisma.employee.create({
-        data: {
-          name: createEmployeeDto.name,
-          walletId: createEmployeeDto.walletId,
-          roleId: createEmployeeDto.roleId,
-          contributions: createEmployeeDto.contributions,
+      const name = createEmployeeDto.name;
+      const roleId = createEmployeeDto.roleId;
+      const walletId = createEmployeeDto.walletId;
+      const role = await this.prisma.role.findUnique({
+        where: {
+          id: roleId,
         },
       });
-     
+      if (!role) {
+        throw new ForbiddenException('Role not found');
+      }
+      // check if contributions exist in createEmployeeDto  
+      let contributions = createEmployeeDto.contributions;
+      if (contributions) {
+        contributions = Number(contributions)
+      }
+      const skills = createEmployeeDto.skills;
+      const overview = createEmployeeDto.overview;
+
+      const employee = await this.prisma.employee.create({
+        data: {
+          name: name,
+          walletId: walletId,
+          roleId: roleId,
+          contributions: contributions,
+        },
+      });
+      const profile = await this.prisma.profile.create({
+        data: {
+          employeeId: employee.id,
+          skills: skills,
+          overview: overview,
+        },
+      });
+      return {
+        employee: employee,
+        profile: profile
+      };
     } catch (error) {
       throw error;
     }
@@ -60,11 +89,15 @@ export class EmployeesService {
     }
   }
 
-  async update(wallet: string, updateEmployeeDto: UpdateEmployeeDto) {
+  async update(id: number, updateEmployeeDto: UpdateEmployeeDto) {
     try {
+      let contributions = updateEmployeeDto.contributions;
+      if (contributions) {
+        contributions = Number(contributions)
+      }
       const employee = this.prisma.employee.update({
         where: {
-          walletId: wallet,
+          id: Number(id),
         },
         data: updateEmployeeDto,
       });

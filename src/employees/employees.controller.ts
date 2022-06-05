@@ -26,9 +26,9 @@ export class EmployeesController {
   findOneWithName(@Param('name') name: string) {
     return this.employeesService.findOneWithWallet(name);
   }
-  @Patch(':wallet')
-  update(@Param('wallet') wallet: string, @Body() updateEmployeeDto: UpdateEmployeeDto) {
-    return this.employeesService.update(wallet, updateEmployeeDto);
+  @Patch(':id')
+  update(@Param('id') id: number, @Body() updateEmployeeDto: UpdateEmployeeDto) {
+    return this.employeesService.update(id, updateEmployeeDto);
   }
 
   @Delete(':wallet')
