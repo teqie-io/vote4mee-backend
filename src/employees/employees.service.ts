@@ -19,7 +19,7 @@ export class EmployeesService {
           contributions: createEmployeeDto.contributions,
         },
       });
-      return employee;
+     
     } catch (error) {
       throw error;
     }

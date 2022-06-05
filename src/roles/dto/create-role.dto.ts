@@ -12,5 +12,5 @@ export class CreateRoleDto {
 
     @IsNumber()
     @IsNotEmpty()
-    weight: bigint
+    weight: number
 }

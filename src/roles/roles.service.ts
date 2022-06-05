@@ -13,7 +13,7 @@ export class RolesService {
         data: {
           id: createRoleDto.id,
           name: createRoleDto.name,
-          weight: createRoleDto.weight,
+          weight: Number(createRoleDto.weight),
         },
       });
       return role;
@@ -40,19 +40,6 @@ export class RolesService {
       })
       return role;
     } catch (error){
-      throw error
-    }
-  }
-
-  async update(id: string, updateRoleDto: UpdateRoleDto) {
-    try {
-      const role = await this.prisma.role.update({
-        where: {
-          id: id
-        },
-        data: updateRoleDto
-      })
-    } catch (error) {
       throw error
     }
   }
