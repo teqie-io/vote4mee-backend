@@ -63,6 +63,20 @@ export class EmployeesService {
     }
   }
 
+  async findOneWithId(id: number) {
+    let uid = Number(id);
+    try {
+      const employee = await this.prisma.employee.findFirst({
+        where: {
+          id: uid,
+        },
+      });
+      return employee;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async findOneWithWallet(wallet: string) {
     try {
       const employee = await this.prisma.employee.findFirst({

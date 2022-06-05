@@ -17,6 +17,11 @@ export class EmployeesController {
     return this.employeesService.findAll();
   }
 
+  @Get(':id')
+  findOneWithId(@Param('id') id: number) {
+    return this.employeesService.findOneWithId(id);
+  }
+
   @Get(':wallet')
   findOneWithWallet(@Param('wallet') wallet: string) {
     return this.employeesService.findOneWithWallet(wallet);
